@@ -1,0 +1,194 @@
+   1               		.file	"main.c"
+   2               	__SREG__ = 0x3f
+   3               	__SP_H__ = 0x3e
+   4               	__SP_L__ = 0x3d
+   5               	__CCP__  = 0x34
+   6               	__tmp_reg__ = 0
+   7               	__zero_reg__ = 1
+  15               	.Ltext0:
+  16               	.global	ADC_Init
+  18               	ADC_Init:
+  19               	.LFB6:
+  20               	.LM1:
+  21               	/* prologue: function */
+  22               	/* frame size = 0 */
+  23               	.LM2:
+  24 0000 ECE7      		ldi r30,lo8(124)
+  25 0002 F0E0      		ldi r31,hi8(124)
+  26 0004 8081      		ld r24,Z
+  27 0006 8F77      		andi r24,lo8(127)
+  28 0008 8083      		st Z,r24
+  29               	.LM3:
+  30 000a 80E4      		ldi r24,lo8(64)
+  31 000c 8083      		st Z,r24
+  32               	.LM4:
+  33 000e 8081      		ld r24,Z
+  34 0010 8E7F      		andi r24,lo8(-2)
+  35 0012 8083      		st Z,r24
+  36               	.LM5:
+  37 0014 8081      		ld r24,Z
+  38 0016 8D7F      		andi r24,lo8(-3)
+  39 0018 8083      		st Z,r24
+  40               	.LM6:
+  41 001a 8081      		ld r24,Z
+  42 001c 8B7F      		andi r24,lo8(-5)
+  43 001e 8083      		st Z,r24
+  44               	.LM7:
+  45 0020 8081      		ld r24,Z
+  46 0022 877F      		andi r24,lo8(-9)
+  47 0024 8083      		st Z,r24
+  48               	.LM8:
+  49 0026 EAE7      		ldi r30,lo8(122)
+  50 0028 F0E0      		ldi r31,hi8(122)
+  51 002a 8081      		ld r24,Z
+  52 002c 8160      		ori r24,lo8(1)
+  53 002e 8083      		st Z,r24
+  54               	.LM9:
+  55 0030 8081      		ld r24,Z
+  56 0032 8260      		ori r24,lo8(2)
+  57 0034 8083      		st Z,r24
+  58               	.LM10:
+  59 0036 8081      		ld r24,Z
+  60 0038 8460      		ori r24,lo8(4)
+  61 003a 8083      		st Z,r24
+  62               	.LM11:
+  63 003c 8081      		ld r24,Z
+  64 003e 8068      		ori r24,lo8(-128)
+  65 0040 8083      		st Z,r24
+  66               	/* epilogue start */
+  67               	.LM12:
+  68 0042 0895      		ret
+  69               	.LFE6:
+  71               	.global	ADC_Select_Channel
+  73               	ADC_Select_Channel:
+  74               	.LFB7:
+  75               	.LM13:
+  76               	.LVL0:
+  77               	/* prologue: function */
+  78               	/* frame size = 0 */
+  79               	.LM14:
+  80 0044 ECE7      		ldi r30,lo8(124)
+  81 0046 F0E0      		ldi r31,hi8(124)
+  82 0048 9081      		ld r25,Z
+  83 004a 9E7F      		andi r25,lo8(-2)
+  84 004c 9083      		st Z,r25
+  85               	.LM15:
+  86 004e 9081      		ld r25,Z
+  87 0050 9D7F      		andi r25,lo8(-3)
+  88 0052 9083      		st Z,r25
+  89               	.LM16:
+  90 0054 9081      		ld r25,Z
+  91 0056 9B7F      		andi r25,lo8(-5)
+  92 0058 9083      		st Z,r25
+  93               	.LM17:
+  94 005a 9081      		ld r25,Z
+  95 005c 977F      		andi r25,lo8(-9)
+  96 005e 9083      		st Z,r25
+  97               	.LM18:
+  98 0060 9081      		ld r25,Z
+  99 0062 982B      		or r25,r24
+ 100 0064 9083      		st Z,r25
+ 101               	/* epilogue start */
+ 102               	.LM19:
+ 103 0066 0895      		ret
+ 104               	.LFE7:
+ 106               	.global	ADC_Read
+ 108               	ADC_Read:
+ 109               	.LFB8:
+ 110               	.LM20:
+ 111               	/* prologue: function */
+ 112               	/* frame size = 0 */
+ 113               	.LM21:
+ 114 0068 8091 7A00 		lds r24,122
+ 115 006c 8064      		ori r24,lo8(64)
+ 116 006e 8093 7A00 		sts 122,r24
+ 117               	.L6:
+ 118               	.LM22:
+ 119 0072 8091 7A00 		lds r24,122
+ 120 0076 84FF      		sbrs r24,4
+ 121 0078 00C0      		rjmp .L6
+ 122               	.LM23:
+ 123 007a 8091 7A00 		lds r24,122
+ 124 007e 8061      		ori r24,lo8(16)
+ 125 0080 8093 7A00 		sts 122,r24
+ 126               	.LM24:
+ 127 0084 2091 7800 		lds r18,120
+ 128 0088 3091 7900 		lds r19,(120)+1
+ 129               	.LM25:
+ 130 008c C901      		movw r24,r18
+ 131               	/* epilogue start */
+ 132 008e 0895      		ret
+ 133               	.LFE8:
+ 135               	.global	main
+ 137               	main:
+ 138               	.LFB9:
+ 139               	.LM26:
+ 140 0090 CF93      		push r28
+ 141 0092 DF93      		push r29
+ 142               	/* prologue: function */
+ 143               	/* frame size = 0 */
+ 144               	.LM27:
+ 145 0094 0E94 0000 		call ADC_Init
+ 146               	.LM28:
+ 147 0098 80E0      		ldi r24,lo8(0)
+ 148 009a 0E94 0000 		call ADC_Select_Channel
+ 149               	.LBB13:
+ 150               	.LBB14:
+ 151               	.LBB15:
+ 152               	.LBB16:
+ 153               	.LBB17:
+ 154               	.LM29:
+ 155 009e C0E9      		ldi r28,lo8(400)
+ 156 00a0 D1E0      		ldi r29,hi8(400)
+ 157               	.LVL1:
+ 158               	.L11:
+ 159               	.LBE17:
+ 160               	.LBE16:
+ 161               	.LBE15:
+ 162               	.LBE14:
+ 163               	.LM30:
+ 164 00a2 0E94 0000 		call ADC_Read
+ 165               	.LVL2:
+ 166 00a6 88EE      		ldi r24,lo8(1000)
+ 167 00a8 93E0      		ldi r25,hi8(1000)
+ 168               	.LVL3:
+ 169               	.L10:
+ 170               	.LBB21:
+ 171               	.LBB20:
+ 172               	.LBB19:
+ 173               	.LBB18:
+ 174               	.LM31:
+ 175 00aa FE01      		movw r30,r28
+ 176               	.LVL4:
+ 177               	/* #APP */
+ 178               	 ;  105 "c:/winavr-20100110/lib/gcc/../../avr/include/util/delay_basic.h" 1
+ 179 00ac 3197      		1: sbiw r30,1
+ 180 00ae 01F4      		brne 1b
+ 181               	 ;  0 "" 2
+ 182               	/* #NOAPP */
+ 183               	.LBE18:
+ 184               	.LBE19:
+ 185               	.LM32:
+ 186 00b0 0197      		sbiw r24,1
+ 187               	.LM33:
+ 188 00b2 01F4      		brne .L10
+ 189 00b4 00C0      		rjmp .L11
+ 190               	.LBE20:
+ 191               	.LBE21:
+ 192               	.LBE13:
+ 193               	.LFE9:
+ 243               	.Letext0:
+DEFINED SYMBOLS
+                            *ABS*:00000000 main.c
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:2      *ABS*:0000003f __SREG__
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:3      *ABS*:0000003e __SP_H__
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:4      *ABS*:0000003d __SP_L__
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:5      *ABS*:00000034 __CCP__
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:6      *ABS*:00000000 __tmp_reg__
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:7      *ABS*:00000001 __zero_reg__
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:18     .text:00000000 ADC_Init
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:73     .text:00000044 ADC_Select_Channel
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:108    .text:00000068 ADC_Read
+C:\Users\farid\AppData\Local\Temp/ccvtHuGZ.s:137    .text:00000090 main
+
+NO UNDEFINED SYMBOLS
