@@ -3,25 +3,25 @@ main.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         0000013a  00000000  00000000  00000054  2**1
+  0 .text         0000013c  00000000  00000000  00000054  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .debug_aranges 00000020  00000000  00000000  0000018e  2**0
+  1 .debug_aranges 00000020  00000000  00000000  00000190  2**0
                   CONTENTS, READONLY, DEBUGGING
-  2 .debug_pubnames 0000004c  00000000  00000000  000001ae  2**0
+  2 .debug_pubnames 0000004c  00000000  00000000  000001b0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  3 .debug_info   0000017f  00000000  00000000  000001fa  2**0
+  3 .debug_info   0000017f  00000000  00000000  000001fc  2**0
                   CONTENTS, READONLY, DEBUGGING
-  4 .debug_abbrev 0000011a  00000000  00000000  00000379  2**0
+  4 .debug_abbrev 0000011a  00000000  00000000  0000037b  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .debug_line   000001eb  00000000  00000000  00000493  2**0
+  5 .debug_line   000001eb  00000000  00000000  00000495  2**0
                   CONTENTS, READONLY, DEBUGGING
   6 .debug_frame  00000050  00000000  00000000  00000680  2**2
                   CONTENTS, READONLY, DEBUGGING
-  7 .debug_str    00000107  00000000  00000000  000006d0  2**0
+  7 .debug_str    00000105  00000000  00000000  000006d0  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_loc    00000050  00000000  00000000  000007d7  2**0
+  8 .debug_loc    00000050  00000000  00000000  000007d5  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_ranges 00000048  00000000  00000000  00000827  2**0
+  9 .debug_ranges 00000048  00000000  00000000  00000825  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -61,8 +61,8 @@ Disassembly of section .text:
   6e:	d8 e0       	ldi	r29, 0x08	; 8
   70:	de bf       	out	0x3e, r29	; 62
   72:	cd bf       	out	0x3d, r28	; 61
-  74:	0e 94 88 00 	call	0x110	; 0x110 <main>
-  78:	0c 94 9b 00 	jmp	0x136	; 0x136 <_exit>
+  74:	0e 94 89 00 	call	0x112	; 0x112 <main>
+  78:	0c 94 9c 00 	jmp	0x138	; 0x138 <_exit>
 
 0000007c <__bad_interrupt>:
   7c:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
@@ -79,167 +79,168 @@ void ADC_Init(void){
   84:	80 81       	ld	r24, Z
   86:	8f 77       	andi	r24, 0x7F	; 127
   88:	80 83       	st	Z, r24
-  ADMUX   =  (1<<REFS0);  //Set REFS0 bit
-  8a:	80 e4       	ldi	r24, 0x40	; 64
-  8c:	80 83       	st	Z, r24
+  ADMUX  |=  (1<<REFS0);  //Set REFS0 bit
+  8a:	80 81       	ld	r24, Z
+  8c:	80 64       	ori	r24, 0x40	; 64
+  8e:	80 83       	st	Z, r24
   
   //Clear all MUX bits, Sets ADC channel 0, See table 23-4, Page 218
   ADMUX  &=~ (1<<MUX0);
-  8e:	80 81       	ld	r24, Z
-  90:	8e 7f       	andi	r24, 0xFE	; 254
-  92:	80 83       	st	Z, r24
+  90:	80 81       	ld	r24, Z
+  92:	8e 7f       	andi	r24, 0xFE	; 254
+  94:	80 83       	st	Z, r24
   ADMUX  &=~ (1<<MUX1);
-  94:	80 81       	ld	r24, Z
-  96:	8d 7f       	andi	r24, 0xFD	; 253
-  98:	80 83       	st	Z, r24
+  96:	80 81       	ld	r24, Z
+  98:	8d 7f       	andi	r24, 0xFD	; 253
+  9a:	80 83       	st	Z, r24
   ADMUX  &=~ (1<<MUX2);
-  9a:	80 81       	ld	r24, Z
-  9c:	8b 7f       	andi	r24, 0xFB	; 251
-  9e:	80 83       	st	Z, r24
+  9c:	80 81       	ld	r24, Z
+  9e:	8b 7f       	andi	r24, 0xFB	; 251
+  a0:	80 83       	st	Z, r24
   ADMUX  &=~ (1<<MUX3);
-  a0:	80 81       	ld	r24, Z
-  a2:	87 7f       	andi	r24, 0xF7	; 247
-  a4:	80 83       	st	Z, r24
+  a2:	80 81       	ld	r24, Z
+  a4:	87 7f       	andi	r24, 0xF7	; 247
+  a6:	80 83       	st	Z, r24
   //Set Prescaler to 128, See table 23-5, Page 219
   //ADC clock should be between 50000 Hz to 200000Hz (Datasheet page 208)
   //CPU clock is 16000000Hz
   //ADC clock = CPU clock / Prescaler
   //ADC clock = 16000000Hz / 128 = 125000Hz
   ADCSRA |=  (1<<ADPS0);
-  a6:	ea e7       	ldi	r30, 0x7A	; 122
-  a8:	f0 e0       	ldi	r31, 0x00	; 0
-  aa:	80 81       	ld	r24, Z
-  ac:	81 60       	ori	r24, 0x01	; 1
-  ae:	80 83       	st	Z, r24
+  a8:	ea e7       	ldi	r30, 0x7A	; 122
+  aa:	f0 e0       	ldi	r31, 0x00	; 0
+  ac:	80 81       	ld	r24, Z
+  ae:	81 60       	ori	r24, 0x01	; 1
+  b0:	80 83       	st	Z, r24
   ADCSRA |=  (1<<ADPS1);
-  b0:	80 81       	ld	r24, Z
-  b2:	82 60       	ori	r24, 0x02	; 2
-  b4:	80 83       	st	Z, r24
+  b2:	80 81       	ld	r24, Z
+  b4:	82 60       	ori	r24, 0x02	; 2
+  b6:	80 83       	st	Z, r24
   ADCSRA |=  (1<<ADPS2);
-  b6:	80 81       	ld	r24, Z
-  b8:	84 60       	ori	r24, 0x04	; 4
-  ba:	80 83       	st	Z, r24
+  b8:	80 81       	ld	r24, Z
+  ba:	84 60       	ori	r24, 0x04	; 4
+  bc:	80 83       	st	Z, r24
   
   //Enable ADC, Datasheet Page 218
   ADCSRA |=  (1<<ADEN);
-  bc:	80 81       	ld	r24, Z
-  be:	80 68       	ori	r24, 0x80	; 128
-  c0:	80 83       	st	Z, r24
+  be:	80 81       	ld	r24, Z
+  c0:	80 68       	ori	r24, 0x80	; 128
+  c2:	80 83       	st	Z, r24
 }
-  c2:	08 95       	ret
+  c4:	08 95       	ret
 
-000000c4 <ADC_Select_Channel>:
+000000c6 <ADC_Select_Channel>:
 
 
 void ADC_Select_Channel(uint8_t channel){
   //Clear All MUX bits
   ADMUX  &=~ (1<<MUX0);
-  c4:	ec e7       	ldi	r30, 0x7C	; 124
-  c6:	f0 e0       	ldi	r31, 0x00	; 0
-  c8:	90 81       	ld	r25, Z
-  ca:	9e 7f       	andi	r25, 0xFE	; 254
-  cc:	90 83       	st	Z, r25
+  c6:	ec e7       	ldi	r30, 0x7C	; 124
+  c8:	f0 e0       	ldi	r31, 0x00	; 0
+  ca:	90 81       	ld	r25, Z
+  cc:	9e 7f       	andi	r25, 0xFE	; 254
+  ce:	90 83       	st	Z, r25
   ADMUX  &=~ (1<<MUX1);
-  ce:	90 81       	ld	r25, Z
-  d0:	9d 7f       	andi	r25, 0xFD	; 253
-  d2:	90 83       	st	Z, r25
+  d0:	90 81       	ld	r25, Z
+  d2:	9d 7f       	andi	r25, 0xFD	; 253
+  d4:	90 83       	st	Z, r25
   ADMUX  &=~ (1<<MUX2);
-  d4:	90 81       	ld	r25, Z
-  d6:	9b 7f       	andi	r25, 0xFB	; 251
-  d8:	90 83       	st	Z, r25
+  d6:	90 81       	ld	r25, Z
+  d8:	9b 7f       	andi	r25, 0xFB	; 251
+  da:	90 83       	st	Z, r25
   ADMUX  &=~ (1<<MUX3);
-  da:	90 81       	ld	r25, Z
-  dc:	97 7f       	andi	r25, 0xF7	; 247
-  de:	90 83       	st	Z, r25
+  dc:	90 81       	ld	r25, Z
+  de:	97 7f       	andi	r25, 0xF7	; 247
+  e0:	90 83       	st	Z, r25
   
   //Set the Channel
   ADMUX  |=  channel;
-  e0:	90 81       	ld	r25, Z
-  e2:	98 2b       	or	r25, r24
-  e4:	90 83       	st	Z, r25
+  e2:	90 81       	ld	r25, Z
+  e4:	98 2b       	or	r25, r24
+  e6:	90 83       	st	Z, r25
 }
-  e6:	08 95       	ret
+  e8:	08 95       	ret
 
-000000e8 <ADC_Read>:
+000000ea <ADC_Read>:
 
 
 uint16_t ADC_Read(void){
   //Start conversion by setting ADSC bit
   ADCSRA |=  (1<<ADSC);
-  e8:	80 91 7a 00 	lds	r24, 0x007A
-  ec:	80 64       	ori	r24, 0x40	; 64
-  ee:	80 93 7a 00 	sts	0x007A, r24
+  ea:	80 91 7a 00 	lds	r24, 0x007A
+  ee:	80 64       	ori	r24, 0x40	; 64
+  f0:	80 93 7a 00 	sts	0x007A, r24
   //Wait Until ADIF bit is set
   while(( ADCSRA & (1<<ADIF) ) == 0);
-  f2:	80 91 7a 00 	lds	r24, 0x007A
-  f6:	84 ff       	sbrs	r24, 4
-  f8:	fc cf       	rjmp	.-8      	; 0xf2 <ADC_Read+0xa>
+  f4:	80 91 7a 00 	lds	r24, 0x007A
+  f8:	84 ff       	sbrs	r24, 4
+  fa:	fc cf       	rjmp	.-8      	; 0xf4 <ADC_Read+0xa>
   //Clear ADIF bit by setting it
   ADCSRA |=  (1<<ADIF);
-  fa:	80 91 7a 00 	lds	r24, 0x007A
-  fe:	80 61       	ori	r24, 0x10	; 16
- 100:	80 93 7a 00 	sts	0x007A, r24
+  fc:	80 91 7a 00 	lds	r24, 0x007A
+ 100:	80 61       	ori	r24, 0x10	; 16
+ 102:	80 93 7a 00 	sts	0x007A, r24
   //Read ADC result by ADCW
   return ADCW;
- 104:	20 91 78 00 	lds	r18, 0x0078
- 108:	30 91 79 00 	lds	r19, 0x0079
+ 106:	20 91 78 00 	lds	r18, 0x0078
+ 10a:	30 91 79 00 	lds	r19, 0x0079
 }
- 10c:	c9 01       	movw	r24, r18
- 10e:	08 95       	ret
+ 10e:	c9 01       	movw	r24, r18
+ 110:	08 95       	ret
 
-00000110 <main>:
+00000112 <main>:
 
 int main(void){
- 110:	cf 93       	push	r28
- 112:	df 93       	push	r29
+ 112:	cf 93       	push	r28
+ 114:	df 93       	push	r29
   
   //Initialize ADC by calling ADC_Init();
   ADC_Init();
- 114:	0e 94 40 00 	call	0x80	; 0x80 <ADC_Init>
+ 116:	0e 94 40 00 	call	0x80	; 0x80 <ADC_Init>
   //Select ADC Channel by calling ADC_Select_Channel(0);
   //If you want to set ADC channel 5, just call ADC_Select_Channel(5);
   //As example I'm using ADC channel 0
   ADC_Select_Channel(0);
- 118:	80 e0       	ldi	r24, 0x00	; 0
- 11a:	0e 94 62 00 	call	0xc4	; 0xc4 <ADC_Select_Channel>
+ 11a:	80 e0       	ldi	r24, 0x00	; 0
+ 11c:	0e 94 63 00 	call	0xc6	; 0xc6 <ADC_Select_Channel>
     milliseconds can be achieved.
  */
 void
 _delay_loop_2(uint16_t __count)
 {
 	__asm__ volatile (
- 11e:	c0 e9       	ldi	r28, 0x90	; 144
- 120:	d1 e0       	ldi	r29, 0x01	; 1
+ 120:	c0 e9       	ldi	r28, 0x90	; 144
+ 122:	d1 e0       	ldi	r29, 0x01	; 1
   
   
 while(1){
         
 		//Get ADC value in val variable
 		int val = ADC_Read();
- 122:	0e 94 74 00 	call	0xe8	; 0xe8 <ADC_Read>
- 126:	88 ee       	ldi	r24, 0xE8	; 232
- 128:	93 e0       	ldi	r25, 0x03	; 3
- 12a:	fe 01       	movw	r30, r28
- 12c:	31 97       	sbiw	r30, 0x01	; 1
- 12e:	f1 f7       	brne	.-4      	; 0x12c <main+0x1c>
+ 124:	0e 94 75 00 	call	0xea	; 0xea <ADC_Read>
+ 128:	88 ee       	ldi	r24, 0xE8	; 232
+ 12a:	93 e0       	ldi	r25, 0x03	; 3
+ 12c:	fe 01       	movw	r30, r28
+ 12e:	31 97       	sbiw	r30, 0x01	; 1
+ 130:	f1 f7       	brne	.-4      	; 0x12e <main+0x1c>
 		__ticks = (uint16_t) (__ms * 10.0);
 		while(__ticks)
 		{
 			// wait 1/10 ms
 			_delay_loop_2(((F_CPU) / 4e3) / 10);
 			__ticks --;
- 130:	01 97       	sbiw	r24, 0x01	; 1
+ 132:	01 97       	sbiw	r24, 0x01	; 1
 		__ticks = 1;
 	else if (__tmp > 65535)
 	{
 		//	__ticks = requested delay in 1/10 ms
 		__ticks = (uint16_t) (__ms * 10.0);
 		while(__ticks)
- 132:	d9 f7       	brne	.-10     	; 0x12a <main+0x1a>
- 134:	f6 cf       	rjmp	.-20     	; 0x122 <main+0x12>
+ 134:	d9 f7       	brne	.-10     	; 0x12c <main+0x1a>
+ 136:	f6 cf       	rjmp	.-20     	; 0x124 <main+0x12>
 
-00000136 <_exit>:
- 136:	f8 94       	cli
+00000138 <_exit>:
+ 138:	f8 94       	cli
 
-00000138 <__stop_program>:
- 138:	ff cf       	rjmp	.-2      	; 0x138 <__stop_program>
+0000013a <__stop_program>:
+ 13a:	ff cf       	rjmp	.-2      	; 0x13a <__stop_program>

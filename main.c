@@ -9,7 +9,7 @@ void ADC_Init(void){
   //Select ADC Reference Voltage, Datasheet Page 217
   //REFS0 bit set, AVcc as Voltage Reference
   ADMUX  &=~ (1<<REFS1);  //Clear REFS1 bit
-  ADMUX   =  (1<<REFS0);  //Set REFS0 bit
+  ADMUX  |=  (1<<REFS0);  //Set REFS0 bit
   
   //Clear all MUX bits, Sets ADC channel 0, See table 23-4, Page 218
   ADMUX  &=~ (1<<MUX0);
